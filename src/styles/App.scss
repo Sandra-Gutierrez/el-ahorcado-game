@@ -1,0 +1,324 @@
+// COMMON STYLES
+
+.title {
+  display: block;
+  font-size: 1.25rem;
+  line-height: 1;
+  text-align: center;
+}
+
+// PAGE
+
+.page {
+  padding: 2rem;
+  width: 100%;
+  min-height: 100vh;
+  background-image: url("../images/blackboard.jpg");
+  background-size: cover;
+  background-position: center center;
+}
+
+// MAIN
+
+.main {
+  display: flex;
+  justify-content: center;
+}
+
+$dummyEnabledColor: white;
+$dummyDisabledColor: rgba(255, 255, 255, 0.2);
+$dummyTransitionTime: 1s;
+
+.dummy {
+  margin-left: 4rem;
+  position: relative;
+  min-width: 15rem;
+  height: 25rem;
+
+  .line {
+    position: absolute;
+    display: block;
+    height: 0.5rem;
+    background-color: $dummyDisabledColor;
+    border-radius: 0.25rem;
+    transition: background-color $dummyTransitionTime ease;
+  }
+
+  .head {
+    position: absolute;
+    display: block;
+    width: 3.5rem;
+    height: 3.5rem;
+    border: 0.5rem solid $dummyDisabledColor;
+    border-radius: 50%;
+    transition: border $dummyTransitionTime ease;
+  }
+
+  .eye {
+    position: absolute;
+    font-size: 1.75rem;
+    font-weight: bold;
+    color: $dummyDisabledColor;
+    transition: color $dummyTransitionTime ease;
+    &::before {
+      content: "×";
+    }
+  }
+
+  .error-1 {
+    width: 6rem;
+    left: 0;
+    bottom: 0;
+  }
+
+  .error-2 {
+    transform: rotate(90deg);
+    width: 23rem;
+    top: 13rem;
+    left: -8.5rem;
+  }
+
+  .error-3 {
+    width: 8rem;
+    top: 1.75rem;
+    left: 2.75rem;
+  }
+
+  .error-4 {
+    transform: rotate(135deg);
+    width: 4rem;
+    top: 3rem;
+    left: 2.25rem;
+  }
+
+  .error-5 {
+    transform: rotate(90deg);
+    width: 6rem;
+    top: 4.5rem;
+    left: 7.5rem;
+  }
+
+  .error-6 {
+    top: 7.5rem;
+    left: 8.75rem;
+  }
+
+  .error-7 {
+    transform: rotate(90deg);
+    width: 6rem;
+    top: 13.5rem;
+    left: 7.5rem;
+  }
+
+  .error-8 {
+    transform: rotate(60deg);
+    width: 3rem;
+    top: 13.5rem;
+    left: 9.75rem;
+  }
+
+  .error-9 {
+    transform: rotate(120deg);
+    width: 3rem;
+    top: 13.5rem;
+    left: 8.25rem;
+  }
+
+  .error-10 {
+    transform: rotate(60deg);
+    width: 4rem;
+    top: 18rem;
+    left: 9.5rem;
+  }
+
+  .error-11 {
+    transform: rotate(120deg);
+    width: 4rem;
+    top: 18rem;
+    left: 7.5rem;
+  }
+
+  .error-12 {
+    top: 7.5rem;
+    left: 9.5rem;
+  }
+
+  .error-13 {
+    top: 7.5rem;
+    left: 10.5rem;
+  }
+
+  // https://sass-lang.com/documentation/at-rules/control/for
+  @for $e from 1 through 13 {
+    @for $s from 1 through $e {
+      &.error-#{$e} {
+        .error-#{$s}.line {
+          background-color: $dummyEnabledColor;
+        }
+        .error-#{$s}.head {
+          border-color: $dummyEnabledColor;
+        }
+        .error-#{$s}.eye {
+          color: $dummyEnabledColor;
+        }
+      }
+    }
+  }
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 2rem;
+
+  * {
+    font-size: 0.75rem;
+  }
+
+  &__menu-item {
+    display: inline-block;
+    list-style: none;
+  }
+
+  &__menu-link {
+    padding-right: 2rem;
+
+    &.active {
+      text-decoration: none;
+    }
+  }
+}
+.form {
+  margin-bottom: 1rem;
+  text-align: center;
+
+  &__input {
+    background-color: transparent;
+    border: none;
+    border-bottom: 3px solid white;
+    text-align: center;
+    font-size: 4rem;
+    outline: none;
+    animation-name: borderBottomInput;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+
+    &[maxLength="1"] {
+      width: 5rem;
+    }
+
+    &[maxLength="15"] {
+      width: 25rem;
+    }
+
+    &::selection {
+      background-color: rgba(255, 255, 255, 0.25);
+    }
+  }
+}
+
+@keyframes borderBottomInput {
+  from {
+    border-bottom-color: white;
+  }
+  50% {
+    border-bottom-color: transparent;
+  }
+  to {
+    border-bottom-color: white;
+  }
+}
+.header__title {
+  padding-bottom: 2rem;
+  font-size: 3rem;
+  font-weight: bold;
+  text-align: center;
+}
+.instructions {
+  max-width: 30rem;
+  line-height: 2.25;
+
+  p {
+    padding-bottom: 2rem;
+  }
+}
+.solution,
+.error {
+  margin-bottom: 3.75rem;
+}
+
+.letters {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  list-style: none;
+  min-height: 3.5625rem;
+
+  .letter {
+    margin: 0 0.25rem;
+    min-width: 1.5rem;
+    font-size: 2rem;
+    border-bottom: 3px solid white;
+    text-align: center;
+  }
+}
+.loading {
+  position: fixed;
+  top: 2rem;
+  left: 2rem;
+  display: block;
+  width: 2rem;
+  height: 2rem;
+  border: 0.25rem solid white;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  animation-name: beat;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+
+  &.hidden {
+    opacity: 0;
+  }
+}
+
+@keyframes beat {
+  0% {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+  20% {
+    width: 2rem;
+    height: 2rem;
+  }
+  40% {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+  60% {
+    width: 2rem;
+    height: 2rem;
+  }
+  80% {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+  100% {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+}
+// RESET
+
+@font-face {
+  font-family: "KgTenThousandReasons";
+  src: url("../fonts/KgTenThousandReasons-R1ll.ttf") format("truetype");
+}
+
+* {
+  font-family: "KgTenThousandReasons", sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-weight: normal;
+  color: white;
+}
