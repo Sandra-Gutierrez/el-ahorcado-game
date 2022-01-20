@@ -1,42 +1,52 @@
 import "../styles/App.scss";
 import callToApi from "../services/api";
+import Form from './Form';
 import Header from './Header';
 import Moñeco from './Moñeco';
+import Solution from './Solution';
 import { useState, useEffect } from "react";
+import Errors from "./Errors";
 
 function App() {
-  
+
   // ESTADO
   const [numberOfErrors, setNumberOfErrors] = useState(0);
   const [lastLetter, setLastLetter] = useState("");
-  const [userLetters, setUserLetters] = useState([]); 
+  const [userLetters, setUserLetters] = useState([]);
   const [word, setWord] = useState("");
   const [wordLetters, setWordLetters] = useState([]);
-  
+
+  const handleSubmit = (event) => {
+    event.preventDefault()
+    setLastLetter("")
+  }
+
+
+
   // API
   useEffect(() => {
     callToApi().then((responseData) => {
       setWord(responseData);
       setWordLetters(responseData.split(""));
-      });
-    }, [] );
+    });
+  }, []);
 
   // MANEJADORAS
   const handleLastLetter = (ev) => {
-    const valueInput = ev.target.value.toLowerCase(); // Recogemos el valor de la letra pulsada
+    const valueInput = ev.target.value.toLocaleLowerCase(); // Recogemos el valor de la letra pulsada
     if (valueInput.match("^[a-zA-ZáäéëíïóöúüÁÄÉËÍÏÓÖÚÜñÑ]?$")) {
       setLastLetter(valueInput); // La validamos y la guardamos en la variable estado lastLetter
       if (!word.includes(valueInput)) {
         // Si nuestra palabra no contiene la letra pulsada, aumentamos el numero de errores
         renderError();
-      } 
+      }
       if (valueInput !== "") {
         //guardamos la letra introducida en el array userLetters
         setUserLetters([...userLetters, valueInput]);
       }
     }
   };
-  
+
   // RENDER
   const renderError = () => {
     // Incrementamos el numero de errores al fallar letra
@@ -64,7 +74,7 @@ function App() {
   const renderSolutionLetters = () => {
     // Mapeo ee array wordLetters
     return wordLetters.map((letter, index) => {
-      if (userLetters.includes(letter)) { // Si encuentro la letra la pinto
+      if (userLetters.includes(letter.toLocaleLowerCase())) { // Si encuentro la letra la pinto
         return (
           <li key={index} className="letter">
             {letter}
@@ -82,19 +92,23 @@ function App() {
       <Header title="Juego del ahorcado" />
       <main className="main">
         <section>
-          <div className="solution">
+          <Solution renderSolutionLetters={renderSolutionLetters} />
+
+          {/* <div className="solution">
             <h2 className="title">Solución:</h2>
             <ul className="letters">
               {renderSolutionLetters()}
             </ul>
-          </div>
-          <div className="error">
+          </div> */}
+          <Errors renderErrorLetters={renderErrorLetters} />
+          {/* <div className="error">
             <h2 className="title">Letras falladas:</h2>
             <ul className="letters">
               {renderErrorLetters()}
             </ul>
-          </div>
-          <form className="form">
+          </div> */}
+          <Form value={lastLetter} handleSubmit={handleSubmit} />
+          {/* <form className="form" onSubmit={handleSubmit}>  
             <label className="title" htmlFor="last-letter">
               Escribe una letra:
             </label>
@@ -108,7 +122,7 @@ function App() {
               value={lastLetter}
               onChange={handleLastLetter}
             />
-          </form>
+          </form> */}
         </section>
         <Moñeco error={numberOfErrors} />
         {/* <section className={`dummy error-${numberOfErrors}`}>
