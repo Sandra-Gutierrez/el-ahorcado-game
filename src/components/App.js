@@ -1,15 +1,17 @@
 import "../styles/App.scss";
 import callToApi from "../services/api";
-import Form from './Form';
-import Header from './Header';
-import Moñeco from './Moñeco';
-import Solution from './Solution';
+import Form from "./Form";
+import Header from "./Header";
+import Moñeco from "./Moñeco";
+import Solution from "./Solution";
 import { useState, useEffect } from "react";
 import Errors from "./Errors";
 import Footer from "./Footer";
+import Instructions from "./Instructions";
+import Options from "./Options";
+import { Switch, Route } from "react-router-dom/cjs/react-router-dom.min";
 
 function App() {
-
   // ESTADO
   const [numberOfErrors, setNumberOfErrors] = useState(0);
   const [lastLetter, setLastLetter] = useState("");
@@ -27,9 +29,9 @@ function App() {
 
   // MANEJADORAS
   const handleSubmit = (event) => {
-    event.preventDefault()
-    setLastLetter("")
-  }
+    event.preventDefault();
+    setLastLetter("");
+  };
   const handleLastLetter = (value) => {
     const valueInput = value.toLocaleLowerCase(); // Recogemos el valor de la letra pulsada
     if (valueInput.match("^[a-zA-ZáäéëíïóöúüÁÄÉËÍÏÓÖÚÜñÑ]?$")) {
@@ -72,13 +74,15 @@ function App() {
   const renderSolutionLetters = () => {
     // Mapeo ee array wordLetters
     return wordLetters.map((letter, index) => {
-      if (userLetters.includes(letter.toLocaleLowerCase())) { // Si encuentro la letra la pinto
+      if (userLetters.includes(letter.toLocaleLowerCase())) {
+        // Si encuentro la letra la pinto
         return (
           <li key={index} className="letter">
             {letter}
           </li>
         );
-      } else { // Si no la encuentra solo se pinta el guión bajo
+      } else {
+        // Si no la encuentra solo se pinta el guión bajo
         return <li key={index} className="letter"></li>;
       }
     });
@@ -88,14 +92,38 @@ function App() {
   return (
     <div className="page">
       <Header title="Juego del ahorcado" />
-      <main className="main">
-        <section>
-          <Solution renderSolutionLetters={renderSolutionLetters} />
-          <Errors renderErrorLetters={renderErrorLetters} />
-          <Form value={lastLetter} handleSubmit={handleSubmit} handleLastLetter={handleLastLetter}/>
-        </section>
-        <Moñeco error={numberOfErrors} />
-      </main>
+
+      <Switch>
+        <Route exact path="/instrucciones">
+          <main className="main">
+            <Instructions />
+            <Moñeco error={numberOfErrors} />
+          </main>
+        </Route>
+
+        <Route exact path="/opciones">
+          <main className="main">
+            <Options />
+            <Moñeco error={numberOfErrors} />
+          </main>
+        </Route>
+
+        <Route exact path="/game">
+          <main className="main">
+            <section>
+              <Solution renderSolutionLetters={renderSolutionLetters} />
+              <Errors renderErrorLetters={renderErrorLetters} />
+              <Form
+                value={lastLetter}
+                handleSubmit={handleSubmit}
+                handleLastLetter={handleLastLetter}
+              />
+            </section>
+            <Moñeco error={numberOfErrors} />
+          </main>
+        </Route>
+      </Switch>
+
       <Footer />
     </div>
   );
