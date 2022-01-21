@@ -1,10 +1,11 @@
 function Form(props) {
-    // const handleLastLetter = (event) => {
-    //     props.handleLastLetter(event.currentTarget.value);
-    // }
+
+    const handleLastLetter = (event) => {
+        props.handleLastLetter(event.currentTarget.value);
+    }
 
     return (
-        <form className="form" onSubmit={props.handleSubmit}>  {/*Sólo en el form */}
+        <form className="form" onSubmit={props.handleSubmit}>  
             <label className="title" htmlFor="last-letter">
                 Escribe una letra:
             </label>

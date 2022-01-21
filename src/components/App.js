@@ -16,24 +16,21 @@ function App() {
   const [word, setWord] = useState("");
   const [wordLetters, setWordLetters] = useState([]);
 
-  const handleSubmit = (event) => {
-    event.preventDefault()
-    setLastLetter("")
-  }
-
-
-
   // API
   useEffect(() => {
     callToApi().then((responseData) => {
-      setWord(responseData);
+      setWord(responseData.toLocaleLowerCase()); // Guardo la palabra en minúsculas
       setWordLetters(responseData.split(""));
     });
   }, []);
 
   // MANEJADORAS
-  const handleLastLetter = (ev) => {
-    const valueInput = ev.target.value.toLocaleLowerCase(); // Recogemos el valor de la letra pulsada
+  const handleSubmit = (event) => {
+    event.preventDefault()
+    setLastLetter("")
+  }
+  const handleLastLetter = (value) => {
+    const valueInput = value.toLocaleLowerCase(); // Recogemos el valor de la letra pulsada
     if (valueInput.match("^[a-zA-ZáäéëíïóöúüÁÄÉËÍÏÓÖÚÜñÑ]?$")) {
       setLastLetter(valueInput); // La validamos y la guardamos en la variable estado lastLetter
       if (!word.includes(valueInput)) {
@@ -93,53 +90,10 @@ function App() {
       <main className="main">
         <section>
           <Solution renderSolutionLetters={renderSolutionLetters} />
-
-          {/* <div className="solution">
-            <h2 className="title">Solución:</h2>
-            <ul className="letters">
-              {renderSolutionLetters()}
-            </ul>
-          </div> */}
           <Errors renderErrorLetters={renderErrorLetters} />
-          {/* <div className="error">
-            <h2 className="title">Letras falladas:</h2>
-            <ul className="letters">
-              {renderErrorLetters()}
-            </ul>
-          </div> */}
-          <Form value={lastLetter} handleSubmit={handleSubmit} />
-          {/* <form className="form" onSubmit={handleSubmit}>  
-            <label className="title" htmlFor="last-letter">
-              Escribe una letra:
-            </label>
-            <input
-              autoComplete="off"
-              className="form__input"
-              maxLength="1"
-              type="text"
-              name="last-letter"
-              id="last-letter"
-              value={lastLetter}
-              onChange={handleLastLetter}
-            />
-          </form> */}
+          <Form value={lastLetter} handleSubmit={handleSubmit} handleLastLetter={handleLastLetter}/>
         </section>
         <Moñeco error={numberOfErrors} />
-        {/* <section className={`dummy error-${numberOfErrors}`}>
-          <span className="error-13 eye"></span>
-          <span className="error-12 eye"></span>
-          <span className="error-11 line"></span>
-          <span className="error-10 line"></span>
-          <span className="error-9 line"></span>
-          <span className="error-8 line"></span>
-          <span className="error-7 line"></span>
-          <span className="error-6 head"></span>
-          <span className="error-5 line"></span>
-          <span className="error-4 line"></span>
-          <span className="error-3 line"></span>
-          <span className="error-2 line"></span>
-          <span className="error-1 line"></span>
-        </section> */}
       </main>
     </div>
   );
