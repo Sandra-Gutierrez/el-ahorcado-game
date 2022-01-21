@@ -6,6 +6,7 @@ import Moñeco from './Moñeco';
 import Solution from './Solution';
 import { useState, useEffect } from "react";
 import Errors from "./Errors";
+import Footer from "./Footer";
 
 function App() {
 
@@ -95,6 +96,7 @@ function App() {
         </section>
         <Moñeco error={numberOfErrors} />
       </main>
+      <Footer />
     </div>
   );
 }
