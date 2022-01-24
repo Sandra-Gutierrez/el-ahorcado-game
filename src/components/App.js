@@ -58,11 +58,13 @@ function App() {
 
   const renderErrorLetters = () => {
     // Filtro las letter de userLetters que NO esten incluidas en wordLetters
+
     const errorLetters = userLetters.filter(
       (letter) => !wordLetters.includes(letter)
     );
     // Mapeo el array errorLetters y renderizo la letra fallada
     return errorLetters.map((letter, index) => {
+
       return (
         <li key={index} className="letter">
           {letter}
@@ -72,20 +74,28 @@ function App() {
   };
 
   const renderSolutionLetters = () => {
-    // Mapeo ee array wordLetters
-    return wordLetters.map((letter, index) => {
-      if (userLetters.includes(letter.toLocaleLowerCase())) {
-        // Si encuentro la letra la pinto
-        return (
-          <li key={index} className="letter">
-            {letter}
-          </li>
-        );
-      } else {
-        // Si no la encuentra solo se pinta el guión bajo
-        return <li key={index} className="letter"></li>;
+    if (wordLetters.length === 0) {
+      return <li className="letter_loading">Cargando...</li>;
+    } else {
+      return wordLetters.map((letter, index) => {
+
+        if (userLetters.includes(letter.toLocaleLowerCase())) {
+          // Si encuentro la letra la pinto
+          return (
+            <li key={index} className="letter">
+              {letter}
+            </li>
+          );
+        } else {
+          // Si no la encuentra solo se pinta el guión bajo
+
+          return <li key={index} className="letter"></li>;
+        }
       }
-    });
+      );
+    }
+    // Mapeo ee array wordLetters
+
   };
 
   // REACT RENDER HTML

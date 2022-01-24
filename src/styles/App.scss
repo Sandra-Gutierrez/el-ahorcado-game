@@ -25,26 +25,22 @@
   justify-content: center;
 }
 
-
-
-  // https://sass-lang.com/documentation/at-rules/control/for
-  @for $e from 1 through 13 {
-    @for $s from 1 through $e {
-      &.error-#{$e} {
-        .error-#{$s}.line {
-          background-color: $dummyEnabledColor;
-        }
-        .error-#{$s}.head {
-          border-color: $dummyEnabledColor;
-        }
-        .error-#{$s}.eye {
-          color: $dummyEnabledColor;
-        }
+// https://sass-lang.com/documentation/at-rules/control/for
+@for $e from 1 through 13 {
+  @for $s from 1 through $e {
+    &.error-#{$e} {
+      .error-#{$s}.line {
+        background-color: $dummyEnabledColor;
+      }
+      .error-#{$s}.head {
+        border-color: $dummyEnabledColor;
+      }
+      .error-#{$s}.eye {
+        color: $dummyEnabledColor;
       }
     }
   }
-
-
+}
 
 .form {
   margin-bottom: 1rem;
@@ -86,7 +82,8 @@
     border-bottom-color: white;
   }
 }
-.instructions, .options {
+.instructions,
+.options {
   max-width: 30rem;
   line-height: 2.25;
 
@@ -112,6 +109,11 @@
     font-size: 2rem;
     border-bottom: 3px solid white;
     text-align: center;
+  }
+  .letter_loading {
+    font-size: 1.5rem;
+    text-align: center;
+    margin-top: 5px;
   }
 }
 .loading {
