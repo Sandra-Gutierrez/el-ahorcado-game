@@ -1,17 +1,17 @@
-import { Link , Switch , Route } from "react-router-dom/cjs/react-router-dom.min";
+import { Link, Switch, Route } from "react-router-dom/cjs/react-router-dom.min";
 import "../styles/Footer.scss";
 
 const Footer = (props) => {
   return (
-    <footer class="footer">
-        <Switch>
+    <footer className="footer">
+      <Switch>
 
         <Route exact path="/instrucciones">
-            <p>Esto es instrucciones</p>
+          <p>Esto es instrucciones</p>
         </Route>
 
         <Route exact path="/opciones">
-            <p>Esto es opciones</p>
+          <p>Esto es opciones</p>
         </Route>
 
         <Route exact path="/">
