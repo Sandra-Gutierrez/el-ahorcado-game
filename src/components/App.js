@@ -108,7 +108,7 @@ function App() {
           </main>
         </Route>
 
-        <Route exact path="/game">
+        <Route exact path="/">
           <main className="main">
             <section>
               <Solution renderSolutionLetters={renderSolutionLetters} />

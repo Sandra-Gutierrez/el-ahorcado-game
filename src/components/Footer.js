@@ -7,7 +7,7 @@ const Footer = (props) => {
       <nav>
         <ul>
           <li className="footer__menu-item">
-            <NavLink to="/game" className="footer__menu-link">
+            <NavLink to="/" className="footer__menu-link">
               A jugar
             </NavLink>
           </li>
