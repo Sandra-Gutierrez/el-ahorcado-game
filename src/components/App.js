@@ -40,8 +40,8 @@ function App() {
         // Si nuestra palabra no contiene la letra pulsada, aumentamos el numero de errores
         renderError();
       }
-      if (valueInput !== "") {
-        //guardamos la letra introducida en el array userLetters
+      if (valueInput !== "" && !userLetters.includes(valueInput)) {
+        //guardamos la letra en userLetters cuando NO es espacio y NO existe esa misma letra
         setUserLetters([...userLetters, valueInput]);
       }
     }
@@ -58,7 +58,6 @@ function App() {
 
   const renderErrorLetters = () => {
     // Filtro las letter de userLetters que NO esten incluidas en wordLetters
-
     const errorLetters = userLetters.filter(
       (letter) => !wordLetters.includes(letter)
     );
